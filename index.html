@@ -44,23 +44,23 @@
     gap:10px;
   }
 
- #brandTop{
-  appearance:none;
-  border:none;
-  background:transparent;
-  padding:0;
-  font-size: 18px;
-  font-weight: 900;
-  color:#fff;
-  opacity:.95;
-  letter-spacing:.4px;
-  cursor:pointer;
-  text-decoration: underline;
-  text-underline-offset: 4px;
-}
-#brandTop:active{ opacity: .75; }
-
+  /* Canal (clicável) */
+  #brandTop{
+    appearance:none;
+    border:none;
+    background:transparent;
+    padding:0;
+    font-size: 18px;
+    font-weight: 900;
+    color:#fff;
+    opacity:.95;
+    letter-spacing:.4px;
+    cursor:pointer;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    margin-top:2px;
   }
+  #brandTop:active{ opacity:.75; }
 
   #modeLabel{
     font-size:13px;
@@ -225,6 +225,51 @@
     box-shadow: 0 0 14px rgba(255,255,255,.08);
   }
 
+  /* ===== Modal YouTube ===== */
+  .modal[hidden]{ display:none !important; }
+
+  .modal{
+    position:fixed;
+    inset:0;
+    background: rgba(0,0,0,.55);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding: 18px;
+    z-index: 9999;
+  }
+  .modalCard{
+    width:min(520px, 96vw);
+    border:1px solid #2b2b2b;
+    background:#0b0b0b;
+    border-radius:18px;
+    padding:14px;
+    color:#e8eaed;
+    box-shadow: 0 18px 60px rgba(0,0,0,.5);
+  }
+  .modalTitle{
+    font-weight: 950;
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+  .modalText{
+    color:#b8bcc1;
+    font-size: 14px;
+    line-height: 1.4;
+    margin-bottom: 12px;
+  }
+  .modalBtns{
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-bottom: 10px;
+  }
+  .modalClose{
+    width:100%;
+    background:#111;
+  }
+
   @media (max-width: 720px){
     #brandTop{ font-size:16px; }
     #bandLabel{ font-size:15px; }
@@ -233,72 +278,16 @@
     input[type="range"]{ width:min(260px, 78vw); }
     #freq{ font-size:clamp(56px,16vw,92px); }
   }
-.modal{
-  position:fixed;
-  inset:0;
-  background: rgba(0,0,0,.55);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding: 18px;
-  z-index: 9999;
-}
-.modalCard{
-  width:min(520px, 96vw);
-  border:1px solid #2b2b2b;
-  background:#0b0b0b;
-  border-radius:18px;
-  padding:14px;
-  color:#e8eaed;
-  box-shadow: 0 18px 60px rgba(0,0,0,.5);
-}
-.modalTitle{
-  font-weight: 950;
-  font-size: 16px;
-  margin-bottom: 6px;
-}
-.modalText{
-  color:#b8bcc1;
-  font-size: 14px;
-  line-height: 1.4;
-  margin-bottom: 12px;
-}
-.modalBtns{
-  display:flex;
-  gap:10px;
-  justify-content:center;
-  flex-wrap:wrap;
-  margin-bottom: 10px;
-}
-.modalClose{
-  width:100%;
-  background:#111;
-}
-
 </style>
 </head>
-
-<div id="ytModal" class="modal" hidden>
-  <div class="modalCard" role="dialog" aria-modal="true" aria-labelledby="ytTitle">
-    <div class="modalTitle" id="ytTitle">Abrir canal</div>
-    <div class="modalText">Escolha como abrir o canal do YouTube:</div>
-
-    <div class="modalBtns">
-      <button id="openYtApp" type="button">Abrir no app</button>
-      <button id="openYtWeb" type="button">Abrir no navegador</button>
-    </div>
-
-    <button id="closeYtModal" class="modalClose" type="button">Cancelar</button>
-  </div>
-</div>
 
 <body>
   <div class="stage">
 
     <div class="center">
       <button id="brandTop" type="button" aria-label="Abrir canal do YouTube">
-  youtube.com/@ProfPetersonBrito
-</button>
+        youtube.com/@ProfPetersonBrito
+      </button>
 
       <div id="modeLabel">Modo: <span class="mono" id="modeName">SWEEP</span></div>
 
@@ -316,14 +305,14 @@
 
     <div class="controls">
       <div class="modeRow">
-        <button class="modeBtn active" id="modeSweep">Sweep</button>
-        <button class="modeBtn" id="modeWhite">Branco</button>
-        <button class="modeBtn" id="modePink">Rosa</button>
+        <button class="modeBtn active" id="modeSweep" type="button">Sweep</button>
+        <button class="modeBtn" id="modeWhite" type="button">Branco</button>
+        <button class="modeBtn" id="modePink" type="button">Rosa</button>
       </div>
 
       <div class="rowBtns">
-        <button id="startBtn">Iniciar</button>
-        <button id="stopBtn" disabled>Parar</button>
+        <button id="startBtn" type="button">Iniciar</button>
+        <button id="stopBtn" type="button" disabled>Parar</button>
       </div>
 
       <div class="box">
@@ -356,6 +345,21 @@
 
   </div>
 
+  <!-- Modal YouTube (só aparece quando clicar no canal) -->
+  <div id="ytModal" class="modal" hidden>
+    <div class="modalCard" role="dialog" aria-modal="true" aria-labelledby="ytTitle">
+      <div class="modalTitle" id="ytTitle">Abrir canal</div>
+      <div class="modalText">Escolha como abrir o canal do YouTube:</div>
+
+      <div class="modalBtns">
+        <button id="openYtApp" type="button">Abrir no app</button>
+        <button id="openYtWeb" type="button">Abrir no navegador</button>
+      </div>
+
+      <button id="closeYtModal" class="modalClose" type="button">Cancelar</button>
+    </div>
+  </div>
+
 <script>
 (() => {
   // ====== CONFIG ======
@@ -373,18 +377,6 @@
   ];
 
   // ====== UI ======
-const brandTopBtn = document.getElementById("brandTop");
-
-// Modal refs
-const ytModal = document.getElementById("ytModal");
-const openYtApp = document.getElementById("openYtApp");
-const openYtWeb = document.getElementById("openYtWeb");
-const closeYtModal = document.getElementById("closeYtModal");
-
-// URLs do canal
-const YT_WEB = "https://www.youtube.com/@ProfPetersonBrito";
-const YT_APP = "youtube://www.youtube.com/@ProfPetersonBrito"; // tentativa de abrir no app
-
   const freqEl = document.getElementById("freq");
   const bandEl = document.getElementById("bandLabel");
   const tipEl  = document.getElementById("bandTip");
@@ -410,12 +402,41 @@ const YT_APP = "youtube://www.youtube.com/@ProfPetersonBrito"; // tentativa de a
   const modeWhiteBtn = document.getElementById("modeWhite");
   const modePinkBtn  = document.getElementById("modePink");
 
+  // ===== Modal YouTube =====
+  const brandTopBtn = document.getElementById("brandTop");
+  const ytModal = document.getElementById("ytModal");
+  const openYtApp = document.getElementById("openYtApp");
+  const openYtWeb = document.getElementById("openYtWeb");
+  const closeYtModal = document.getElementById("closeYtModal");
+
+  const YT_WEB = "https://www.youtube.com/@ProfPetersonBrito";
+  const YT_APP = "youtube://www.youtube.com/@ProfPetersonBrito";
+
+  function showYtModal(){ ytModal.hidden = false; }
+  function hideYtModal(){ ytModal.hidden = true; }
+
+  brandTopBtn.addEventListener("click", (e) => { e.preventDefault(); showYtModal(); });
+  closeYtModal.addEventListener("click", (e) => { e.preventDefault(); hideYtModal(); });
+  ytModal.addEventListener("click", (e) => { if (e.target === ytModal) hideYtModal(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !ytModal.hidden) hideYtModal(); });
+
+  openYtWeb.addEventListener("click", (e) => {
+    e.preventDefault();
+    hideYtModal();
+    window.open(YT_WEB, "_blank", "noopener,noreferrer");
+  });
+
+  openYtApp.addEventListener("click", (e) => {
+    e.preventDefault();
+    hideYtModal();
+    window.location.href = YT_APP;
+    setTimeout(() => window.open(YT_WEB, "_blank", "noopener,noreferrer"), 900);
+  });
+
   // ====== AUDIO ======
   let ctx = null, gain = null, osc = null, noiseSrc = null;
-  let raf = null;
-  let tStart = 0, tEnd = 0;
+  let raf = null, tStart = 0, tEnd = 0;
 
-  // Buffers de ruído (loop)
   let whiteBuf = null, pinkBuf = null;
 
   // ====== STATE ======
@@ -423,7 +444,7 @@ const YT_APP = "youtube://www.youtube.com/@ProfPetersonBrito"; // tentativa de a
   let isRunning = false;
   let isUserDrag = false;
   let lastBand = -1;
-  let mode = "sweep"; // "sweep" | "white" | "pink"
+  let mode = "sweep"; // sweep | white | pink
 
   // ====== UTILS ======
   function pad2(n){ return String(n).padStart(2,"0"); }
@@ -437,12 +458,10 @@ const YT_APP = "youtube://www.youtube.com/@ProfPetersonBrito"; // tentativa de a
     const x = Math.max(0.000001, g);
     return 20 * Math.log10(x);
   }
-
   function freqAt(t){
     const p = Math.min(Math.max(t / duration, 0), 1);
     return fStart * Math.pow(fEnd/fStart, p);
   }
-
   function bandIndexFor(f){
     for (let i=0;i<BANDS.length;i++){
       const b=BANDS[i];
@@ -450,7 +469,6 @@ const YT_APP = "youtube://www.youtube.com/@ProfPetersonBrito"; // tentativa de a
     }
     return BANDS.length-1;
   }
-
   function applyBand(i){
     const b = BANDS[i];
     const maxShown = (b.max>20000) ? "20.000" : String(Math.round(b.max));
@@ -458,13 +476,11 @@ const YT_APP = "youtube://www.youtube.com/@ProfPetersonBrito"; // tentativa de a
     tipEl.textContent = b.t;
     document.documentElement.style.setProperty("--accent", b.c);
   }
-
   function updateSeekUI(t){
     const p = Math.min(Math.max(t / duration, 0), 1);
     seekLabel.textContent = `${fmtTime(t)} / ${fmtTime(duration)}`;
     progInfo.textContent = `${Math.round(p*100)}%`;
   }
-
   function previewSweepAt(t){
     const f = freqAt(t);
     freqEl.textContent = fmtHz(f);
@@ -475,9 +491,7 @@ const YT_APP = "youtube://www.youtube.com/@ProfPetersonBrito"; // tentativa de a
     }
     updateSeekUI(t);
   }
-
   function previewNoise(){
-    // Em ruído: sem banda/frequência específica
     freqEl.textContent = "—";
     bandEl.textContent = (mode === "white") ? "RUÍDO BRANCO" : "RUÍDO ROSA";
     tipEl.textContent =
@@ -485,27 +499,24 @@ const YT_APP = "youtube://www.youtube.com/@ProfPetersonBrito"; // tentativa de a
         ? "Energia igual por Hz. Útil para mostrar espectro, hiss e percepção de brilho."
         : "Energia por oitava (≈ -3 dB/oitava). Soa mais “equilibrado” ao ouvido; bom para referência e testes.";
     document.documentElement.style.setProperty("--accent", (mode === "white") ? "#cfff6a" : "#ffe66a");
-    updateSeekUI(0);
+    seekLabel.textContent = `00:00 / ${fmtTime(duration)}`;
     progInfo.textContent = "—";
   }
-
   function setRunning(r){
     isRunning = r;
     startBtn.disabled = r;
     stopBtn.disabled  = !r;
   }
 
+  // ===== iOS/Safari safe resume (sem await) =====
   function ensureCtx(){
     if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
     return ctx;
   }
-
-  // iOS-safe: evitar await dentro do gesto; usar .then()
   function resumeCtxThen(cb){
     ensureCtx();
 
     const doUnlock = () => {
-      // "ping" curtíssimo (destrava em alguns iOS/Safari)
       try{
         const buffer = ctx.createBuffer(1, 1, ctx.sampleRate);
         const src = ctx.createBufferSource();
@@ -531,7 +542,6 @@ const YT_APP = "youtube://www.youtube.com/@ProfPetersonBrito"; // tentativa de a
 
   function stopSources(){
     if (!ctx) return;
-
     const now = ctx.currentTime;
 
     if (gain){
@@ -550,18 +560,15 @@ const YT_APP = "youtube://www.youtube.com/@ProfPetersonBrito"; // tentativa de a
     raf = null;
   }
 
-  // ====== NOISE GENERATORS (buffers loopáveis) ======
+  // ===== Noise buffers =====
   function makeWhiteBuffer(seconds=2){
     const len = Math.floor(ctx.sampleRate * seconds);
     const buf = ctx.createBuffer(1, len, ctx.sampleRate);
     const data = buf.getChannelData(0);
-    for (let i=0;i<len;i++){
-      data[i] = (Math.random()*2 - 1) * 0.6; // headroom
-    }
+    for (let i=0;i<len;i++) data[i] = (Math.random()*2 - 1) * 0.6;
     return buf;
   }
 
-  // Pink noise: filtro de Paul Kellet aplicado em amostra
   function makePinkBuffer(seconds=3){
     const len = Math.floor(ctx.sampleRate * seconds);
     const buf = ctx.createBuffer(1, len, ctx.sampleRate);
@@ -581,7 +588,7 @@ const YT_APP = "youtube://www.youtube.com/@ProfPetersonBrito"; // tentativa de a
       const pink = b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362;
       b6 = white * 0.115926;
 
-      out[i] = (pink * 0.11); // escala / headroom
+      out[i] = (pink * 0.11);
     }
     return buf;
   }
@@ -591,13 +598,11 @@ const YT_APP = "youtube://www.youtube.com/@ProfPetersonBrito"; // tentativa de a
     if (!pinkBuf)  pinkBuf  = makePinkBuffer(3);
   }
 
-  // ====== STARTS ======
+  // ===== Start/loops =====
   function startSweepFromOffset(newOffset){
     stopSources();
-
     ensureGain();
 
-    // restaura volume alvo
     const g0 = Math.max(0.00001, Number(vol.value));
     gain.gain.setValueAtTime(g0, ctx.currentTime);
 
@@ -652,12 +657,9 @@ const YT_APP = "youtube://www.youtube.com/@ProfPetersonBrito"; // tentativa de a
     gainInfo.textContent = `${g0.toFixed(3)} (≈ ${gainToDbfs(g0).toFixed(1)} dBFS)`;
 
     previewNoise();
-
-    // início imediato (sem rampas de freq)
     noiseSrc.start();
 
     setRunning(true);
-    // sem RAF obrigatório, mas mantemos gainInfo atualizando se quiser
     raf = requestAnimationFrame(loopNoiseUI);
   }
 
@@ -680,7 +682,7 @@ const YT_APP = "youtube://www.youtube.com/@ProfPetersonBrito"; // tentativa de a
     gainInfo.textContent = `${g.toFixed(3)} (≈ ${gainToDbfs(g).toFixed(1)} dBFS)`;
 
     if (now < tEnd) raf = requestAnimationFrame(loopSweep);
-    else {
+    else{
       offsetSec = duration;
       setRunning(false);
       stopSources();
@@ -688,22 +690,22 @@ const YT_APP = "youtube://www.youtube.com/@ProfPetersonBrito"; // tentativa de a
     }
   }
 
-  // ====== MODE SWITCH ======
+  // ===== Mode switch =====
   function setMode(newMode){
     mode = newMode;
 
-    // UI dos botões
-    for (const b of [modeSweepBtn, modeWhiteBtn, modePinkBtn]) b.classList.remove("active");
+    modeSweepBtn.classList.remove("active");
+    modeWhiteBtn.classList.remove("active");
+    modePinkBtn.classList.remove("active");
+
     if (mode === "sweep") modeSweepBtn.classList.add("active");
     if (mode === "white") modeWhiteBtn.classList.add("active");
     if (mode === "pink")  modePinkBtn.classList.add("active");
 
-    // labels
     modeName.textContent = (mode === "sweep") ? "SWEEP" : (mode === "white" ? "BRANCO" : "ROSA");
     signalInfo.textContent = modeName.textContent;
     curveInfo.textContent = (mode === "sweep") ? "LOG" : "—";
 
-    // comportamento do seek
     if (mode === "sweep"){
       seek.disabled = false;
       previewSweepAt(Number(seek.value));
@@ -714,7 +716,6 @@ const YT_APP = "youtube://www.youtube.com/@ProfPetersonBrito"; // tentativa de a
       previewNoise();
     }
 
-    // se estiver tocando, reinicia no novo modo
     if (isRunning){
       resumeCtxThen(() => {
         if (mode === "sweep") startSweepFromOffset(Number(seek.value));
@@ -723,7 +724,7 @@ const YT_APP = "youtube://www.youtube.com/@ProfPetersonBrito"; // tentativa de a
     }
   }
 
-  // ====== EVENTS ======
+  // ===== Events =====
   vol.addEventListener("input", () => {
     const v = Number(vol.value);
     volLabel.textContent = Math.round(v*100) + "%";
@@ -734,7 +735,6 @@ const YT_APP = "youtube://www.youtube.com/@ProfPetersonBrito"; // tentativa de a
     }
   });
 
-  // Seek (só no sweep)
   seek.addEventListener("input", () => {
     if (mode !== "sweep") return;
     offsetSec = Number(seek.value);
@@ -777,7 +777,7 @@ const YT_APP = "youtube://www.youtube.com/@ProfPetersonBrito"; // tentativa de a
     stopSources();
     setRunning(false);
     srInfo.textContent = "—";
-    if (mode === "sweep") {
+    if (mode === "sweep"){
       offsetSec = Number(seek.value);
       previewSweepAt(offsetSec);
     } else {
@@ -787,9 +787,9 @@ const YT_APP = "youtube://www.youtube.com/@ProfPetersonBrito"; // tentativa de a
 
   modeSweepBtn.addEventListener("click", () => setMode("sweep"));
   modeWhiteBtn.addEventListener("click", () => setMode("white"));
-  modePinkBtn.addEventListener("click",  () => setMode("pink"));
+  modePinkBtn.addEventListener("click", () => setMode("pink"));
 
-  // ====== INIT ======
+  // ===== Init =====
   seek.max = String(duration);
   seek.value = "0";
 
@@ -797,46 +797,9 @@ const YT_APP = "youtube://www.youtube.com/@ProfPetersonBrito"; // tentativa de a
   volLabel.textContent = Math.round(gInit*100) + "%";
   gainInfo.textContent = `${gInit.toFixed(3)} (≈ ${gainToDbfs(gInit).toFixed(1)} dBFS)`;
 
-  // estado inicial: sweep
   setMode("sweep");
   previewSweepAt(0);
   setRunning(false);
-function showYtModal(){
-  ytModal.hidden = false;
-}
-function hideYtModal(){
-  ytModal.hidden = true;
-}
-
-brandTopBtn.addEventListener("click", () => {
-  showYtModal();
-});
-
-closeYtModal.addEventListener("click", hideYtModal);
-ytModal.addEventListener("click", (e) => {
-  if (e.target === ytModal) hideYtModal();
-});
-
-// Abrir no navegador
-openYtWeb.addEventListener("click", () => {
-  hideYtModal();
-  window.open(YT_WEB, "_blank", "noopener,noreferrer");
-});
-
-// Abrir no app (se falhar, o usuário pode escolher “navegador”)
-openYtApp.addEventListener("click", () => {
-  hideYtModal();
-
-  // tentativa de deep link
-  window.location.href = YT_APP;
-
-  // fallback (alguns iOS bloqueiam deep link)
-  setTimeout(() => {
-    // se o app não abrir, ao menos abre no web
-    window.open(YT_WEB, "_blank", "noopener,noreferrer");
-  }, 900);
-});
-
 })();
 </script>
 
