@@ -1,4 +1,4 @@
-const CACHE_NAME = "sweep-pwa-v1";
+const CACHE_NAME = "sweep-pwa-v2";
 const ASSETS = [
   "./",
   "./index.html",
@@ -39,3 +39,4 @@ self.addEventListener("fetch", (event) => {
     })
   );
 });
+
