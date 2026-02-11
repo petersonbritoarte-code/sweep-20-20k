@@ -605,33 +605,44 @@ gain.gain.setValueAtTime(g0, nowG);
   }
 
   // ===== Mode switch =====
-  function setMode(newMode){
-    mode = newMode;
+function setMode(newMode){
+  mode = newMode;
 
-    modeSweepBtn.classList.toggle("active", mode === "sweep");
-    modeWhiteBtn.classList.toggle("active", mode === "white");
-    modePinkBtn.classList.toggle("active",  mode === "pink");
+  modeSweepBtn.classList.toggle("active", mode === "sweep");
+  modeWhiteBtn.classList.toggle("active", mode === "white");
+  modePinkBtn.classList.toggle("active",  mode === "pink");
 
-    if (mode === "sweep"){
-      modeName.textContent = "SWEEP";
-      signalInfo.textContent = "SWEEP";
-      curveInfo.textContent = "LOG";
-      modeName.style.color = "";
-      previewSweepAt(Number(seek.value));
-    } else if (mode === "white") {
-      modeName.textContent = "RUÍDO BRANCO";
-      signalInfo.textContent = "RUÍDO BRANCO";
-      curveInfo.textContent = "—";
-      modeName.style.color = "#ffffff";
-      previewNoise();
-    } else {
-      modeName.textContent = "RUÍDO ROSA";
-      signalInfo.textContent = "RUÍDO ROSA";
-      curveInfo.textContent = "—";
-      modeName.style.color = "#ff6ec7";
-      previewNoise();
-    }
+  if (mode === "sweep"){
+    modeName.textContent = "SWEEP";
+    signalInfo.textContent = "SWEEP";
+    curveInfo.textContent = "LOG";
+    modeName.style.color = "";
+    previewSweepAt(Number(seek.value));
+  } else if (mode === "white") {
+    modeName.textContent = "RUÍDO BRANCO";
+    signalInfo.textContent = "RUÍDO BRANCO";
+    curveInfo.textContent = "—";
+    modeName.style.color = "#ffffff";
+    previewNoise();
+  } else {
+    modeName.textContent = "RUÍDO ROSA";
+    signalInfo.textContent = "RUÍDO ROSA";
+    curveInfo.textContent = "—";
+    modeName.style.color = "#ff6ec7";
+    previewNoise();
   }
+
+  // ===== Troca automática do áudio ao mudar de modo =====
+  if (isRunning) {
+    resumeCtxThen(() => {
+      if (mode === "sweep") {
+        startSweepFromOffset(Number(seek.value));
+      } else {
+        startNoise();
+      }
+    });
+  }
+}
 
   function startAction(){
     resumeCtxThen(() => {
