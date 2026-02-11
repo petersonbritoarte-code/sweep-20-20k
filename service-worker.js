@@ -1,4 +1,4 @@
-const CACHE_NAME = "freq-2020-v1.4";
+const CACHE_NAME = "freq-2020-v1.5";
 const ASSETS = [
   "./",
   "./index.html",
@@ -38,5 +38,6 @@ self.addEventListener("fetch", (event) => {
     })
   );
 });
+
 
 
