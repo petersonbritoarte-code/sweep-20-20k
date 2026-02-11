@@ -1,4 +1,4 @@
-const CACHE_NAME = "sweep-pwa-v8";
+const CACHE_NAME = "freq-2020-v1.0";
 const ASSETS = [
   "./",
   "./index.html",
@@ -37,6 +37,3 @@ self.addEventListener("fetch", (event) => {
     })
   );
 });
-
-
-
