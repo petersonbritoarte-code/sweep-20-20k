@@ -272,6 +272,21 @@
       input[type="range"]{ width:min(260px, 78vw); }
       #freq{ font-size:clamp(56px,16vw,92px); }
     }
+input[type="range"].disabled{
+  opacity:.45;
+  filter: grayscale(1);
+}
+/* Botões de modo com cor sólida */
+.modeBtn.whiteSolid{
+  background:#ffffff !important;
+  color:#000000 !important;
+  border-color:#ffffff !important;
+}
+.modeBtn.pinkSolid{
+  background:#ff6ec7 !important;
+  color:#000000 !important;
+  border-color:#ff6ec7 !important;
+}
   </style>
 </head>
 
@@ -388,6 +403,9 @@
   const modeSweepBtn = document.getElementById("modeSweep");
   const modeWhiteBtn = document.getElementById("modeWhite");
   const modePinkBtn  = document.getElementById("modePink");
+
+  modeWhiteBtn.classList.add("whiteSolid");
+  modePinkBtn.classList.add("pinkSolid");
 
   // ====== AUDIO ======
   let ctx = null, gain = null, osc = null, noiseSrc = null;
@@ -681,6 +699,9 @@ signalInfo.textContent = "RUÍDO ROSA (Pink Noise)";
     curveInfo.textContent = "—";
     modeName.style.color = "#ff6ec7";
     previewNoise();
+// habilita/desabilita o seek conforme modo
+seek.disabled = (mode !== "sweep");
+seek.classList.toggle("disabled", mode !== "sweep");
   }
 
   // ===== Troca automática do áudio ao mudar de modo =====
