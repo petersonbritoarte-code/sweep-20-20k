@@ -670,14 +670,14 @@ function setMode(newMode){
     modeName.style.color = "";
     previewSweepAt(Number(seek.value));
   } else if (mode === "white") {
-    modeName.textContent = "RUÍDO BRANCO";
-    signalInfo.textContent = "RUÍDO BRANCO";
+modeName.textContent = "RUÍDO BRANCO (White Noise)";
+signalInfo.textContent = "RUÍDO BRANCO (White Noise)";
     curveInfo.textContent = "—";
     modeName.style.color = "#ffffff";
     previewNoise();
   } else {
-    modeName.textContent = "RUÍDO ROSA";
-    signalInfo.textContent = "RUÍDO ROSA";
+modeName.textContent = "RUÍDO ROSA (Pink Noise)";
+signalInfo.textContent = "RUÍDO ROSA (Pink Noise)";
     curveInfo.textContent = "—";
     modeName.style.color = "#ff6ec7";
     previewNoise();
