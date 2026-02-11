@@ -277,15 +277,34 @@ input[type="range"].disabled{
   filter: grayscale(1);
 }
 /* Botões de modo com cor sólida */
+.modeBtn.whiteSolid,
+.modeBtn.pinkSolid{
+  transition: all .15s ease;
+}
+
 .modeBtn.whiteSolid{
   background:#ffffff !important;
   color:#000000 !important;
   border-color:#ffffff !important;
 }
+
 .modeBtn.pinkSolid{
   background:#ff6ec7 !important;
   color:#000000 !important;
   border-color:#ff6ec7 !important;
+}
+
+/* ===== Estado ativo ===== */
+.modeBtn.whiteSolid.active{
+  border: 3px solid #bdbdbd !important;
+  box-shadow: 0 0 0 3px rgba(255,255,255,.25);
+  transform: scale(0.97);
+}
+
+.modeBtn.pinkSolid.active{
+  border: 3px solid #c2185b !important;
+  box-shadow: 0 0 0 3px rgba(255,110,199,.35);
+  transform: scale(0.97);
 }
   </style>
 </head>
