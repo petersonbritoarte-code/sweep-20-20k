@@ -508,6 +508,55 @@ window.addEventListener("load", () => setTimeout(hideSplash, 450));
 });
 })();
 
+// ===== Theme system =====
+(() => {
+  const themeBtn = document.getElementById("themeBtn");
+  const themeMenu = document.getElementById("themeMenu");
+  const items = Array.from(document.querySelectorAll(".themeItem"));
+  const KEY = "freq2020_theme";
+
+  if (!themeBtn || !themeMenu || items.length === 0) return;
+
+  function setTheme(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem(KEY, theme);
+
+    items.forEach(btn => {
+      const is = btn.dataset.theme === theme;
+      btn.setAttribute("aria-checked", is ? "true" : "false");
+    });
+  }
+
+  function openMenu(open) {
+    themeMenu.classList.toggle("open", open);
+    themeBtn.setAttribute("aria-expanded", open ? "true" : "false");
+  }
+
+  const saved = localStorage.getItem(KEY);
+  setTheme(saved || "deep");
+
+  themeBtn.addEventListener("click", () => {
+    openMenu(!themeMenu.classList.contains("open"));
+  });
+
+  items.forEach(btn => {
+    btn.addEventListener("click", () => {
+      setTheme(btn.dataset.theme);
+      openMenu(false);
+    });
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!themeMenu.classList.contains("open")) return;
+    if (themeMenu.contains(e.target) || themeBtn.contains(e.target)) return;
+    openMenu(false);
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") openMenu(false);
+  });
+})();
+
 
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {

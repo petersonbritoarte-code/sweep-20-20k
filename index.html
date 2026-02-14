@@ -43,9 +43,24 @@
 <div class="stage">
 
     <div class="center">
-      <a id="brandTop" href="https://www.youtube.com/@ProfPetersonBrito" target="_blank" rel="noopener noreferrer">
-        youtube.com/@ProfPetersonBrito
-      </a>
+     <div class="topbar">
+  <a class="toplink" href="https://www.youtube.com/@ProfPetersonBrito" target="_blank" rel="noopener noreferrer">
+    youtube.com/@ProfPetersonBrito
+  </a>
+
+  <div class="themeWrap">
+    <button id="themeBtn" class="iconBtn" type="button" aria-label="Temas" aria-haspopup="menu" aria-expanded="false">
+      🎨
+    </button>
+
+    <div id="themeMenu" class="themeMenu" role="menu" aria-label="Selecione um tema">
+      <button class="themeItem" role="menuitemradio" data-theme="deep" aria-checked="true">Deep Audio (padrão)</button>
+      <button class="themeItem" role="menuitemradio" data-theme="spectrum" aria-checked="false">Azul Espectro</button>
+      <button class="themeItem" role="menuitemradio" data-theme="organic" aria-checked="false">Orgânico</button>
+      <button class="themeItem" role="menuitemradio" data-theme="classic" aria-checked="false">Preto Clássico</button>
+    </div>
+  </div>
+</div>
 
       <div id="modeLabel">Modo: <span class="mono" id="modeName">SWEEP</span></div>
 
