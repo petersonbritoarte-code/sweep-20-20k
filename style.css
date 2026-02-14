@@ -3,8 +3,9 @@
     *{ box-sizing:border-box; }
 
   /* Tema padrão (Deep Audio) */
-  --bg0: #0E1624;
-  --bg1: #0A101A;
+  --bg0: #0B1220;   /* topo */
+  --bg1: #070D18;   /* base */
+
 
   --card: rgba(255,255,255,0.06);
   --card2: rgba(255,255,255,0.04);
