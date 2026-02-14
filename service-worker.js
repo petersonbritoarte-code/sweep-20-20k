@@ -1,10 +1,13 @@
-const CACHE_NAME = "freq-2020-v1.7";
+const CACHE_NAME = "freq-2020-v1.8"; // atualize a versão
+
 const ASSETS = [
   "./",
   "./index.html",
+  "./style.css",          // novo
+  "./app.js",             // novo
   "./manifest.json",
   "./service-worker.js",
-  "./og-image.png", 
+  "./og-image.png",
   "./icons/icon-192.png",
   "./icons/icon-512.png"
 ];
@@ -19,7 +22,9 @@ self.addEventListener("install", (event) => {
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then(keys =>
-      Promise.all(keys.map(k => (k !== CACHE_NAME ? caches.delete(k) : null)))
+      Promise.all(
+        keys.map(k => (k !== CACHE_NAME ? caches.delete(k) : null))
+      )
     )
   );
   self.clients.claim();
@@ -30,16 +35,14 @@ self.addEventListener("fetch", (event) => {
   event.respondWith(
     caches.match(req).then((cached) => {
       if (cached) return cached;
-      return fetch(req).then((res) => {
-        const copy = res.clone();
-        caches.open(CACHE_NAME).then(cache => cache.put(req, copy));
-        return res;
-      }).catch(() => caches.match("./index.html"));
+
+      return fetch(req)
+        .then((res) => {
+          const copy = res.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(req, copy));
+          return res;
+        })
+        .catch(() => caches.match("./index.html"));
     })
   );
 });
-
-
-
-
-

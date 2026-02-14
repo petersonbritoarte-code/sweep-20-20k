@@ -1,0 +1,280 @@
+<style>
+    :root{ color-scheme: dark; --accent:#8bd3ff; }
+    *{ box-sizing:border-box; }
+
+    body{
+      margin:0;
+      background:#000;
+      min-height:100svh;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+      padding: calc(14px + env(safe-area-inset-top)) 14px calc(14px + env(safe-area-inset-bottom));
+    }
+
+    .stage{
+      width:min(980px, 100%);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:12px;
+    }
+
+    .center{
+      width:100%;
+      text-align:center;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:10px;
+    }
+
+    /* Canal (clicável) – link simples (o iOS/Android decide se abre no app) */
+    #brandTop{
+      display:inline-block;
+      font-size:18px;
+      font-weight:900;
+      color:#fff;
+      opacity:.95;
+      letter-spacing:.4px;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      margin-top:2px;
+    }
+    #brandTop:active{ opacity:.75; }
+
+    #modeLabel{
+      font-size:13px;
+      color:#9aa0a6;
+      margin-top:-2px;
+    }
+
+    #bandLabel{
+      font-size:18px;
+      font-weight:900;
+      letter-spacing:.7px;
+      text-transform:uppercase;
+      color:var(--accent);
+    }
+
+    #freq{
+      font-family:ui-monospace,Menlo,Consolas,monospace;
+      font-size:clamp(72px,12vw,140px);
+      font-weight:950;
+      color:var(--accent);
+      line-height:1;
+      text-shadow: 0 0 18px rgba(255,255,255,.06);
+    }
+
+    #bandTip{
+      max-width:900px;
+      font-size:16px;
+      color:#b8bcc1;
+      line-height:1.45;
+      min-height:2.6em;
+      padding:0 8px;
+    }
+
+    .safety{
+      width:100%;
+      max-width:920px;
+      margin-top:4px;
+      padding:12px 14px;
+      border-radius:16px;
+      border:1px solid #2a1f00;
+      background:#0f0c00;
+      color:#e8eaed;
+      font-size:14px;
+      line-height:1.4;
+    }
+    .safety strong{ color:#ffd36a; }
+
+    .controls{
+      width:100%;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:12px;
+      margin-top:4px;
+    }
+
+    .rowBtns{
+      display:flex;
+      gap:14px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+
+    button{
+      appearance:none;
+      border:1px solid #2b2b2b;
+      background:#111;
+      color:#e8eaed;
+      padding:14px 22px;
+      border-radius:18px;
+      font-weight:900;
+      cursor:pointer;
+      font-size:16px;
+    }
+    button:hover{ background:#151515; }
+    button:disabled{ opacity:.5; cursor:not-allowed; }
+
+    .modeRow{
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      flex-wrap:wrap;
+      width:100%;
+    }
+
+    .modeBtn{
+      padding:10px 14px;
+      font-size:14px;
+      border-radius:16px;
+      font-weight:900;
+      background: rgba(17,17,17,.9);
+    }
+    .modeBtn.active{
+      border-color: var(--accent);
+      box-shadow: 0 0 18px rgba(255,255,255,.06);
+    }
+
+    .box{
+      width:100%;
+      max-width:860px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:center;
+      flex-wrap:wrap;
+      padding:12px 14px;
+      border:1px solid #1f1f1f;
+      background: rgba(10,10,10,.75);
+      backdrop-filter: blur(6px);
+      border-radius:16px;
+      color:#c9cdd1;
+      font-size:14px;
+    }
+
+    input[type="range"]{
+      width:340px;
+      touch-action: pan-y;
+    }
+
+    .mono{
+      font-family:ui-monospace,Menlo,Consolas,monospace;
+      color:#e8eaed;
+      font-weight:900;
+    }
+
+    .infoPanel{
+      width:100%;
+      max-width:860px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      padding:12px 14px;
+      border:1px solid #1f1f1f;
+      background: rgba(10,10,10,.65);
+      backdrop-filter: blur(6px);
+      border-radius:16px;
+      color:#c9cdd1;
+      margin-top:2px;
+    }
+
+    .infoRow{
+      display:flex;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:10px 14px;
+      font-size:13px;
+    }
+
+    .chip{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      padding:8px 10px;
+      border:1px solid #1f1f1f;
+      border-radius:14px;
+      background: rgba(0,0,0,.25);
+    }
+
+    .dot{
+      width:10px;height:10px;border-radius:50%;
+      background:var(--accent);
+      box-shadow: 0 0 14px rgba(255,255,255,.08);
+    }
+.splash{
+  position:fixed; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  background:#000;
+  z-index:99999;
+  transition: opacity .25s ease;
+}
+.splash.hide{ opacity:0; pointer-events:none; }
+.splash.gone{ display:none; }
+.splashCard{
+  text-align:center;
+  padding:18px 20px;
+}
+.splashIcon{
+  width:86px; height:86px;
+  border-radius:18px;
+  margin-bottom:12px;
+}
+.splashTitle{
+  font-weight:950;
+  font-size:20px;
+  color:#fff;
+  letter-spacing:.2px;
+}
+.splashSub{
+  margin-top:4px;
+  color:#b8bcc1;
+  font-size:14px;
+}
+    @media (max-width: 720px){
+      #brandTop{ font-size:16px; }
+      #bandLabel{ font-size:15px; }
+      #bandTip{ font-size:14px; }
+      .safety{ font-size:13px; }
+      input[type="range"]{ width:min(260px, 78vw); }
+      #freq{ font-size:clamp(56px,16vw,92px); }
+    }
+input[type="range"].disabled{
+  opacity:.45;
+  filter: grayscale(1);
+}
+/* Botões de modo com cor sólida */
+.modeBtn.whiteSolid,
+.modeBtn.pinkSolid{
+  transition: all .15s ease;
+}
+
+.modeBtn.whiteSolid{
+  background:#ffffff !important;
+  color:#000000 !important;
+  border-color:#ffffff !important;
+}
+
+.modeBtn.pinkSolid{
+  background:#ff6ec7 !important;
+  color:#000000 !important;
+  border-color:#ff6ec7 !important;
+}
+
+/* ===== Estado ativo ===== */
+.modeBtn.whiteSolid.active{
+  border: 3px solid #bdbdbd !important;
+  box-shadow: 0 0 0 3px rgba(255,255,255,.25);
+  transform: scale(0.97);
+}
+
+.modeBtn.pinkSolid.active{
+  border: 3px solid #c2185b !important;
+  box-shadow: 0 0 0 3px rgba(255,110,199,.35);
+  transform: scale(0.97);
+}
+  </style>
