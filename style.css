@@ -376,7 +376,7 @@ input[type="range"].disabled{
   padding: 10px;
   border-radius: 14px;
 
-  background: var(--card);
+  background: #0A1C1C;
   border: 1px solid var(--border);
   box-shadow: var(--shadow);
 
